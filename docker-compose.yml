@@ -35,8 +35,6 @@ services:
 
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-        #volumes:
-        #  - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
         environment:
           - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
           - "discovery.type=single-node"

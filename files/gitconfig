@@ -1,0 +1,44 @@
+[color]
+	ui = auto
+[core]
+	whitespace = -trailing-space
+[diff]
+	mnemonicPrefix = true
+	wordRegex = .
+[grep]
+extendedRegexp = true
+[log]
+	abbrevCommit = true
+[merge]
+	conflictStyle = diff3
+[mergetool]
+	keepBackup = false
+	keepTemporaries = false
+	prompt = false
+[branch]
+  autosetuprebase = always
+[alias]
+	last = cat-file commit HEAD
+	cm = commit -a -m\"[refactor] code mort\"
+	format = commit -a -m\"[refactor] format\"
+	pep8 = commit -a -m\"[refactor] format : pep8\"
+	rename = commit -a -m\"[refactor] renommage\"
+	duplication = commit -a -m\"[refactor] code mort : duplication\"
+	st = status -s
+	co = checkout
+	ci = commit
+	br = branch -a -v
+	rb = rebase
+	rbi = rebase -i
+	log-stats = log --stat
+	pretty-log = log --oneline --date-order --graph --all --decorate
+	topo-log = log --oneline --graph --all --decorate
+	t = log --oneline --graph --all --decorate -15
+	diff = diff -p --stat
+[core]
+	editor = vim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

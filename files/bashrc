@@ -1,0 +1,20 @@
+source $HOME/.bash_aliases
+
+# afficher l'etat du git
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+}
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(parse_git_dirty)]/"
+}
+
+# activer le nom de la branche git en vert
+PS1='\[\033[01;31m\][\u@\h]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[00;32m\]$(parse_git_branch)\[\033[00m\]$ '
+
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm use 8.9.4

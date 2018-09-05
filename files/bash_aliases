@@ -1,0 +1,8 @@
+alias vi='vim'
+alias ls='ls --color'
+alias ll='ls -l --color'
+alias la='ls -a --color'
+alias t='git topo-log -15'
+
+alias da='cd /home/dev/src/datashare'
+alias di='cd /home/dev/src/datashare/datashare-dist/target/datashare-dist*'

@@ -27,7 +27,7 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     chown ${uid}:${gid} -R /home/${internal_user}
 
 # dev utils
-RUN apt-get -y update && apt-get -y install git net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev
+RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev
 
 RUN pip install ansible==2.6.3
 
@@ -38,6 +38,8 @@ USER dev
 
 # install nodejs in dev HOME
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && bash -c 'source $HOME/.nvm/nvm.sh && nvm install 8.9.4 && nvm use 8.9.4 && npm install -g yarn'
+# oh my zsh for hippies
+RUN curl -o- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash ; exit 0
 
 USER root
 

@@ -1,13 +1,13 @@
 version: '2'
 services:
     dev:
-        image: "${MY_IMAGE}"
+        image: "${DS_IMAGE}"
         hostname: dev
         # see http://blog.johngoulah.com/2016/03/running-strace-in-docker/
         security_opt:
           - seccomp:unconfined
         volumes: 
-          - ${MY_HOME}:/home/dev
+          - ${DS_HOME}:/home/dev
           - ${HOME}/applications:/home/dev/applications
           - ${HOME}/.gnupg:/home/dev/.gnupg
           - /tmp/.X11-unix:/tmp/.X11-unix:rw
@@ -28,8 +28,8 @@ services:
         dns: 172.30.0.2
         ports:
           - "3001:3001"
-        volumes:
-          - ./secrets.yml:/usr/src/xemx/config/secrets.yml
+        #volumes:
+        #  - ./secrets.yml:/usr/src/xemx/config/secrets.yml
         environment:
           - "XEMX_HOST=xemx"
 

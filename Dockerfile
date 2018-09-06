@@ -34,13 +34,7 @@ RUN pip install ansible==2.6.3
 # ADD user to docker group
 RUN groupadd docker -g 999 && gpasswd -a dev docker
 
-USER dev
-
-# install nodejs in dev HOME
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && bash -c 'source $HOME/.nvm/nvm.sh && nvm install 8.9.4 && nvm use 8.9.4 && npm install -g yarn'
-# oh my zsh for hippies
-RUN curl -o- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash ; exit 0
-
-USER root
+# n : node version manager
+RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 8.9.4
 
 ENV HOME="/home/dev" LANGUAGE="en" LANG="fr_FR.UTF-8"

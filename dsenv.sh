@@ -15,6 +15,9 @@ if [[ $1 == "start" ]]; then
   for file in $DSENV_DIR/rcfiles/*; do
     cp -n $file $CURRENT_DIR/.`basename $file`
   done
+  if [ ! -f $CURRENT_DIR/.profile ]; then
+    ln -s $CURRENT_DIR/.bashrc $CURRENT_DIR/.profile 
+  fi
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p datashare up -d
 elif [[ "$1" == "stop" ]]; then 
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p datashare stop

@@ -1,11 +1,6 @@
 #!/bin/bash
-
-if test -n "$ZSH_VERSION"; then
-  PROFILE_SHELL=zsh
-elif test -n "$BASH_VERSION"; then
-  PROFILE_SHELL=bash
-else 
-  echo "unknown shell type, using bash"
+PROFILE_SHELL=$(ps -o command -p $PPID | grep -v COMMAND| sed 's/\-//g')
+if test -n "$PROFILE_VERSION"; then
   PROFILE_SHELL=bash
 fi
 

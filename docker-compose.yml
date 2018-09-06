@@ -10,6 +10,7 @@ services:
           - ${DS_HOME}:/home/dev
           - ${HOME}/applications:/home/dev/applications
           - ${HOME}/.gnupg:/home/dev/.gnupg
+          - ${HOME}/.ssh:/home/dev/.ssh
           - /tmp/.X11-unix:/tmp/.X11-unix:rw
           - /usr/bin/docker:/bin/docker:rw
           - /var/run/docker.sock:/run/docker.sock:rw

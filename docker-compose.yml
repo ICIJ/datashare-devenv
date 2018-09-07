@@ -26,14 +26,28 @@ services:
 
     xemx:
         image: icij/xemx
-        dns: 172.30.0.2
         ports:
           - "3001:3001"
-        #volumes:
-        #  - ./secrets.yml:/usr/src/xemx/config/secrets.yml
         environment:
-          - "XEMX_HOST=xemx"
+          RAILS_ENV: development
+          DATABASE_URL: 'mysql2://root:root@mysql:3306/xemx_development'
+          TEST_DATABASE_URL: 'mysql2://root:root@mysql:3306/xemx_test'
+          LDAP_HOST: openldap
+          LDAP_PORT: 389
+          LDAP_BASE_DN: dc=icij,dc=org
+          LDAP_ADMIN_USER: cn=admin,dc=icij,dc=org
+          LDAP_ADMIN_PASSWORD: admin
+          WAIT_HOSTS: openldap:389
 
+    mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+          - 6603:3306
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: xemx_developmentœ
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
         environment:
@@ -45,3 +59,26 @@ services:
           - "http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE"
         ports:
           - "9200:9200"
+
+    openldap:
+        image: icij/openldap
+        ports:
+          - 389:389
+          - 636:636
+        environment:
+          LDAP_READONLY_USER: "false"
+          LDAP_LOG_LEVEL: 128
+          LDAP_DOMAIN: icij.org
+          LDAP_BASE_DN: dc=icij,dc=org
+          LDAP_ADMIN_USER: cn=admin,dc=icij,dc=org
+          LDAP_ADMIN_PASSWORD: admin
+          LDAP_ORGANISATION: ICIJ
+          LDAP_RFC2307BIS_SCHEMA: "false"
+          LDAP_BACKEND: mdb
+          LDAP_TLS: "false"
+          LDAP_REPLICATION: "false"
+          KEEP_EXISTING_CONFIG: "false"
+          LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+          LDAP_SSL_HELPER_PREFIX: ldap
+          tty: "true"
+          stdin_open: "true"

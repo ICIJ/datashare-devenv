@@ -1,6 +1,6 @@
 # Devenv for Datashare
 
-The goal of this repository is to provide a dockerized environment for [datashare](https://github.com/ICIJ/datashare) development. 
+The goal of this repository is to provide a dockerized environment for [datashare](https://github.com/ICIJ/datashare) development and tests. 
 
 It provides a docker container with :
 
@@ -12,9 +12,9 @@ It provides a docker container with :
 
 # How to use it
 
-You can build your dev container running in this repository :
-
 ## Develop
+
+You can build your dev container running in this repository :
 ```
 1-$ docker build -t dsenv .
 # go where you want to set your development home

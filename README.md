@@ -14,6 +14,7 @@ It provides a docker container with :
 
 You can build your dev container running in this repository :
 
+## Develop
 ```
 1-$ docker build -t dsenv .
 # go where you want to set your development home
@@ -29,14 +30,15 @@ You can build your dev container running in this repository :
 3. is entering inside the container (docker exec -ti ...)
 4. is stopping all the datashare containers
 
-Then after having built the dsenv container you just have to make a `dsenv.sh start` and `enter_dsenv.sh.
+Then after having built the dsenv container you just have to make a `dsenv.sh start` and `enter_dsenv.sh`.
+
+## Testing locally with latest sources
 
 To use the whole stack (with xemx logging) you can:
 
 1. connect xemx on http://xemx:3001 *into the container* (so you can lauch a firefox inside the container)
 2. define a datashare application with the return url http://dsenv:8080/auth/xemx/callback
+3. make a link between the back and the front : in the datashare source folder `ln -s ../datashare-client/dist app` (you have to have compiled a front dist before)
 3. launch the backend with `./launchBack.sh -w -m PRODUCTION --oauthClientId <yourid> --oauthClientSecret <your_secret>`
 4. connect datashare *into the container* on http://dsenv:8080
 5. logon datashare with dev/dev
-
-

@@ -3,7 +3,7 @@
 PROFILE_SHELL_WITH_PATH=$(ps -o command -p $PPID | grep -v COMMAND| sed 's/\-//g')
 PROFILE_SHELL=$(basename $PROFILE_SHELL_WITH_PATH)
 
-if test -n "$PROFILE_SHELL"; then
+if [ -z "$PROFILE_SHELL" ]; then
   PROFILE_SHELL=bash
 fi
 

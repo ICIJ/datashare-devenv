@@ -7,7 +7,10 @@ services:
         security_opt:
           - seccomp:unconfined
         dns: 172.30.0.2
-        volumes: 
+        ports:
+          - "9090:9090"
+          - "8080:8080"
+        volumes:
           - ${DS_HOME}:/home/dev
           - ${HOME}/applications:/home/dev/applications
           - ${HOME}/.gnupg:/home/dev/.gnupg

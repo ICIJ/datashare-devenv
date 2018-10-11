@@ -27,7 +27,7 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     chown ${uid}:${gid} -R /home/${internal_user}
 
 # dev utils
-RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio
+RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr
 # xar for mac packages
 RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/xar/xar-1.5.2.tar.gz && tar -zxf xar-1.5.2.tar.gz && cd xar-1.5.2 && ./configure && make && make install
 

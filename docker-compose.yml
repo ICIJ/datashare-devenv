@@ -59,6 +59,7 @@ services:
           - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
           - "discovery.type=single-node"
           - "cluster.name=datashare"
+          - "http.compression=false"
           - "http.cors.enabled=true"
           - "http.cors.allow-origin=*"
           - "http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE"

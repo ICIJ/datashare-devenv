@@ -88,3 +88,8 @@ services:
           LDAP_SSL_HELPER_PREFIX: ldap
           tty: "true"
           stdin_open: "true"
+
+    solr:
+        image: solr:7.5
+        ports:
+           - 8983:8983

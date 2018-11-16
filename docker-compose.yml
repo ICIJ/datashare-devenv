@@ -90,6 +90,6 @@ services:
           stdin_open: "true"
 
     solr:
-        image: solr:7.5
+        image: solr:6.6.0
         ports:
            - 8983:8983

@@ -4,9 +4,9 @@ RUN add-apt-repository --yes ppa:webupd8team/java && add-apt-repository --yes pp
 # name: oracle license selected
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 # name: oracle license seen
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections 
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 
-RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt oracle-java8-installer
+RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt oracle-java8-installer wget
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
@@ -26,8 +26,12 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     chmod 0440 /etc/sudoers.d/${internal_user} && \
     chown ${uid}:${gid} -R /home/${internal_user}
 
+# postgresql 10 client
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+
 # dev utils
-RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv
+RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv postgresql-client-10
 
 # xar for mac packages
 RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/xar/xar-1.5.2.tar.gz && tar -zxf xar-1.5.2.tar.gz && cd xar-1.5.2 && ./configure && make && make install

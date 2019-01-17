@@ -1,1 +1,7 @@
 .idea
+.bash*
+.gitconfig
+.profile
+.tmux*
+.zcompdump
+.zshrc

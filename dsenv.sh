@@ -18,7 +18,7 @@ if [[ $1 == "start" ]]; then
   if [ ! -f $CURRENT_DIR/.profile ]; then
     ln -s $CURRENT_DIR/.bashrc $CURRENT_DIR/.profile 
   fi
-  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p datashare up -d
+  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
 elif [[ "$1" == "stop" ]]; then 
-  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p datashare stop
+  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv stop
 fi

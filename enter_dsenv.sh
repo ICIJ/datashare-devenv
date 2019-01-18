@@ -13,4 +13,4 @@ if [ "$PROFILE_SHELL" == "zsh" ]; then
   fi
 fi
 
-docker exec -ti datashare_dsenv_1 script -q -c "/sbin/setuser dev /bin/$PROFILE_SHELL -c 'cd ~ && /bin/$PROFILE_SHELL'" /dev/null
+docker exec -ti dsenv_dsenv_1 script -q -c "/sbin/setuser dev /bin/$PROFILE_SHELL -c 'cd ~ && /bin/$PROFILE_SHELL'" /dev/null

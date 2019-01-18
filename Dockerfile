@@ -35,6 +35,7 @@ RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl w
 
 # xar for mac packages
 RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/xar/xar-1.5.2.tar.gz && tar -zxf xar-1.5.2.tar.gz && cd xar-1.5.2 && ./configure && make && make install
+RUN wget https://github.com/hogliux/bomutils/archive/0.2.tar.gz  && tar -zxf 0.2.tar.gz && cd bomutils-0.2 && make && make install
 
 RUN pip install ansible==2.6.3
 

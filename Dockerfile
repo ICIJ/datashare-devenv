@@ -46,3 +46,4 @@ RUN groupadd docker -g 999 && gpasswd -a dev docker
 RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 8.9.4 && npm install -g yarn
 
 ENV HOME="/home/dev" LANGUAGE="en" LANG="fr_FR.UTF-8"
+ADD ./hello.sh /opt/hello.sh

@@ -8,7 +8,8 @@ services:
           - seccomp:unconfined
         dns: 172.30.0.2
         ports:
-          - "9090:9090"
+          - 9090
+          - 8080
         volumes:
           - ${DS_HOME}:/home/dev
           - ${HOME}/applications:/home/dev/applications
@@ -24,13 +25,9 @@ services:
 
     redis:
         image: redis:4.0.1-alpine
-        ports:
-          - "6379:6379"
 
     xemx:
         image: icij/xemx
-        ports:
-          - "3001:3001"
         environment:
           XEMX_HOST: xemx
           RAILS_ENV: development
@@ -47,8 +44,6 @@ services:
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         restart: always
-        ports:
-          - 6603:3306
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: xemx_development
@@ -68,9 +63,6 @@ services:
 
     openldap:
         image: icij/openldap
-        ports:
-          - 389:389
-          - 636:636
         environment:
           LDAP_READONLY_USER: "false"
           LDAP_LOG_LEVEL: 128
@@ -91,13 +83,9 @@ services:
 
     solr:
         image: solr:6.6.0
-        ports:
-          - 8983:8983
 
     postgresql:
         image: postgres:10.4
-        ports:
-          - "5433:5432"
         environment:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test

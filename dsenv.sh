@@ -19,6 +19,11 @@ if [[ $1 == "start" ]]; then
     ln -s $CURRENT_DIR/.bashrc $CURRENT_DIR/.profile
   fi
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
+  DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 8080)"
+  DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 9090)"
+
+  echo -e "\e[2mBackend interface will be exposed on: \e[0m$DSENV_BACKEND_HOST"
+  echo -e "\e[2mFrontend interface will be exposed on: \e[0m$DSENV_FRONTEND_HOST"
 elif [[ "$1" == "stop" ]]; then
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv stop
 elif [[ "$1" == "destroy" ]]; then

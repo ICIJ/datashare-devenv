@@ -6,7 +6,7 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-s
 # name: oracle license seen
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 
-RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt oracle-java8-installer wget
+RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt oracle-java8-installer wget chromium-browser
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 

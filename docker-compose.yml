@@ -6,7 +6,7 @@ services:
         # see http://blog.johngoulah.com/2016/03/running-strace-in-docker/
         security_opt:
           - seccomp:unconfined
-        dns: 172.30.0.2
+        dns: "${DS_DNS}"
         ports:
           - 9090
           - 8080

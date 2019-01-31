@@ -9,7 +9,7 @@ DSENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 export DS_HOME=${DS_HOME:-$CURRENT_DIR}
 export DS_IMAGE=${DS_IMAGE:-dsenv}
-
+export DS_DNS=${DS_DNS:-172.30.0.2}
 
 if [[ $1 == "start" ]]; then
   for file in $DSENV_DIR/rcfiles/*; do

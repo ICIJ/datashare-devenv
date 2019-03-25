@@ -23,6 +23,18 @@ services:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent
 
+    preview:
+        image: datashare-preview:latest
+        ports:  
+          - 5000:5000
+        volumes:
+          - ${DS_HOME}:/home/dev
+          - /tmp/.X11-unix:/tmp/.X11-unix
+        environment:
+          - FILES_ROOT_PATH=/home/dev
+          - DISPLAY=${DISPLAY}
+
+
     redis:
         image: redis:4.0.1-alpine
 

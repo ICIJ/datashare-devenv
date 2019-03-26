@@ -24,8 +24,8 @@ services:
           - SSH_AUTH_SOCK=/ssh-agent
 
     preview:
-        image: datashare-preview:latest
-        ports:  
+        image: icij/datashare-preview:latest
+        ports:
           - 5000:5000
         volumes:
           - ${DS_HOME}:/home/dev
@@ -33,7 +33,6 @@ services:
         environment:
           - FILES_ROOT_PATH=/home/dev
           - DISPLAY=${DISPLAY}
-
 
     redis:
         image: redis:4.0.1-alpine

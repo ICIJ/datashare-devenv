@@ -100,3 +100,6 @@ services:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test
           POSTGRES_DB: solr2es
+
+    neo4j:
+        image: neo4j:3.5

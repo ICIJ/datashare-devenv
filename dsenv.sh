@@ -1,8 +1,4 @@
 #!/bin/bash
-if [[ "$1" != "stop" && "$1" != "start" && "$1" != "destroy" ]]; then
-  echo "usage : $0 start, destroy or stop "
-  exit 1
-fi
 
 CURRENT_DIR=$(pwd)
 DSENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
@@ -28,4 +24,6 @@ elif [[ "$1" == "stop" ]]; then
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv stop
 elif [[ "$1" == "destroy" ]]; then
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv down
+else
+  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv $@
 fi

@@ -1,12 +1,8 @@
 FROM phusion/baseimage
 
-RUN add-apt-repository --yes ppa:webupd8team/java && add-apt-repository --yes ppa:deadsnakes/ppa
-# name: oracle license selected
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-# name: oracle license seen
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
-RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt oracle-java8-installer wget chromium-browser
+RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt wget chromium-browser
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
@@ -25,6 +21,16 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     echo "${internal_user} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${internal_user} && \
     chmod 0440 /etc/sudoers.d/${internal_user} && \
     chown ${uid}:${gid} -R /home/${internal_user}
+
+RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz \
+    https://download.java.net/openjdk/jdk8u40/ri/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz && \
+    mkdir -p /opt/java && cd /opt/java && \
+    tar xzf /tmp/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz &&\
+    update-alternatives --install /usr/bin/java java /opt/java/java-se-8u40-ri/jre/bin/java 1 &&\
+    update-alternatives --set java /opt/java/java-se-8u40-ri/jre/bin/java &&\
+    update-alternatives --install /usr/bin/javac javac /opt/java/java-se-8u40-ri/bin/javac 1
+    update-alternatives --set javac /opt/java/java-se-8u40-ri/bin/javac
+ENV JAVA_HOME=/opt/java/java-se-8u40-ri
 
 # postgresql 10 client
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -

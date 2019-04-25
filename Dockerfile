@@ -28,7 +28,7 @@ RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/
     tar xzf /tmp/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz &&\
     update-alternatives --install /usr/bin/java java /opt/java/java-se-8u40-ri/jre/bin/java 1 &&\
     update-alternatives --set java /opt/java/java-se-8u40-ri/jre/bin/java &&\
-    update-alternatives --install /usr/bin/javac javac /opt/java/java-se-8u40-ri/bin/javac 1
+    update-alternatives --install /usr/bin/javac javac /opt/java/java-se-8u40-ri/bin/javac 1 && \
     update-alternatives --set javac /opt/java/java-se-8u40-ri/bin/javac
 ENV JAVA_HOME=/opt/java/java-se-8u40-ri
 

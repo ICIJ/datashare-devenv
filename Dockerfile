@@ -2,7 +2,7 @@ FROM phusion/baseimage
 
 RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
-RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt wget chromium-browser
+RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt wget chromium-browser default-jdk maven
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
@@ -22,22 +22,13 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     chmod 0440 /etc/sudoers.d/${internal_user} && \
     chown ${uid}:${gid} -R /home/${internal_user}
 
-RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz \
-    https://download.java.net/openjdk/jdk8u40/ri/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz && \
-    mkdir -p /opt/java && cd /opt/java && \
-    tar xzf /tmp/jdk_ri-8u40-b25-linux-x64-10_feb_2015.tar.gz &&\
-    update-alternatives --install /usr/bin/java java /opt/java/java-se-8u40-ri/jre/bin/java 1 &&\
-    update-alternatives --set java /opt/java/java-se-8u40-ri/jre/bin/java &&\
-    update-alternatives --install /usr/bin/javac javac /opt/java/java-se-8u40-ri/bin/javac 1 && \
-    update-alternatives --set javac /opt/java/java-se-8u40-ri/bin/javac
-ENV JAVA_HOME=/opt/java/java-se-8u40-ri
 
 # postgresql 10 client
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 
 # dev utils
-RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv postgresql-client-10 redis-tools jq
+RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv postgresql-client-10 redis-tools jq libgif-dev
 
 # xar for mac packages
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install

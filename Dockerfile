@@ -34,7 +34,7 @@ RUN apt-get -y update && apt-get -y install git zsh net-tools man-db tree curl w
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install
 RUN wget https://github.com/hogliux/bomutils/archive/0.2.tar.gz  && tar -zxf 0.2.tar.gz && cd bomutils-0.2 && make && make install
 
-RUN pip install ansible==2.6.3
+RUN pip install ansible==2.7.10
 
 # ADD user to docker group
 RUN groupadd docker -g 999 && gpasswd -a dev docker

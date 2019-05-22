@@ -7,6 +7,12 @@ export DS_HOME=${DS_HOME:-$CURRENT_DIR}
 export DS_IMAGE=${DS_IMAGE:-dsenv}
 export DS_DNS=${DS_DNS:-172.30.0.2}
 
+if [[ "$(docker images -q ${DS_IMAGE} 2> /dev/null)" == "" ]]; then
+  # do something
+  echo "Devenv image doesn't existing yet. We need to build it!"
+  docker build -t dsenv ${DSENV_DIR}
+fi
+
 if [[ $1 == "start" ]]; then
   for file in $DSENV_DIR/rcfiles/*; do
     cp -n $file $CURRENT_DIR/.`basename $file`

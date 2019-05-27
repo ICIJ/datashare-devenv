@@ -40,7 +40,7 @@ RUN pip install ansible==2.7.10
 RUN groupadd docker -g 999 && gpasswd -a dev docker
 
 # n : node version manager
-RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn
+RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn majestic
 
 ENV HOME="/home/dev" LANGUAGE="en" LANG="fr_FR.UTF-8"
 ADD ./hello.sh /opt/hello.sh

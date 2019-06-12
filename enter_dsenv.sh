@@ -1,6 +1,11 @@
 #!/bin/bash
 
-PROFILE_SHELL_WITH_PATH=$(ps -o command -p $PPID | grep -v COMMAND| sed 's/\-//g')
+PROFILE_SHELL_WITH_PATH=$SHELL
+
+if [ -z "$PROFILE_SHELL_WITH_PATH" ]; then
+  PROFILE_SHELL_WITH_PATH=$(ps -o command -p $PPID | grep -v COMMAND | sed 's/\-//g')
+fi
+
 PROFILE_SHELL=$(basename $PROFILE_SHELL_WITH_PATH)
 DSENV_CONTAINER=$(docker ps | grep dsenv_dsenv_ | head -1 | awk '{print $NF}')
 

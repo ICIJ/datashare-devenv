@@ -22,7 +22,6 @@ RUN export uid=1000 gid=1000 internal_user=dev && \
     chmod 0440 /etc/sudoers.d/${internal_user} && \
     chown ${uid}:${gid} -R /home/${internal_user}
 
-
 # postgresql 10 client
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
@@ -41,6 +40,11 @@ RUN groupadd docker -g 999 && gpasswd -a dev docker
 
 # n : node version manager
 RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn majestic
+
+# install ruby rvm
+RUN gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN curl -sSL https://get.rvm.io | bash -s stable --rails && \
+    chown -R dev:dev /usr/local/rvm
 
 ENV HOME="/home/dev" LANGUAGE="en" LANG="fr_FR.UTF-8"
 ADD ./hello.sh /opt/hello.sh

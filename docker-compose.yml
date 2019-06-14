@@ -30,10 +30,9 @@ services:
         ports:
           - 5000:5000
         volumes:
-          - ${DS_HOME}:/home/dev
           - /tmp/.X11-unix:/tmp/.X11-unix
         environment:
-          - FILES_ROOT_PATH=/home/dev
+          - DS_HOST=http://dsenv:8080
           - DISPLAY=${DISPLAY}
 
     redis:

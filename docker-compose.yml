@@ -32,6 +32,7 @@ services:
         volumes:
           - /tmp/.X11-unix:/tmp/.X11-unix
         environment:
+          - FLASK_ENV=development
           - DS_HOST=http://dsenv:8080
           - DISPLAY=${DISPLAY}
 

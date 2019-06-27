@@ -26,7 +26,7 @@ services:
           - SSH_AUTH_SOCK=/ssh-agent
 
     preview:
-        image: icij/datashare-preview:latest
+        image: icij/datashare-preview:0.1.1
         ports:
           - 5000:5000
         volumes:

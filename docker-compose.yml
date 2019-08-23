@@ -24,6 +24,7 @@ services:
         environment:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent
+          - TMUX=${TMUX}
 
     preview:
         image: icij/datashare-preview:0.1.1

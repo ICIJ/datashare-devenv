@@ -27,13 +27,12 @@ services:
           - TMUX=${TMUX}
 
     preview:
-        image: icij/datashare-preview:0.1.1
+        image: icij/datashare-preview:0.2.6
         ports:
           - 5000:5000
         volumes:
           - /tmp/.X11-unix:/tmp/.X11-unix
         environment:
-          - FLASK_ENV=development
           - DS_HOST=http://dsenv:8080
           - DISPLAY=${DISPLAY}
 

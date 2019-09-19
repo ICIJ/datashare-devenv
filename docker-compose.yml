@@ -40,7 +40,9 @@ services:
         image: redis:4.0.1-alpine
 
     xemx:
-        image: icij/xemx
+        image: icij/xemx:2.2
+        ports:
+          - 3001:3001
         environment:
           XEMX_HOST: xemx
           RAILS_ENV: development

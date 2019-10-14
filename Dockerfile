@@ -32,7 +32,7 @@ RUN apt-get -y update && \
     tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev \
     firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv \
     postgresql-client-10 libpq-dev redis-tools jq libgif-dev libxcomposite1 libxcursor1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libatk-bridge2.0-0 \
-    libgtk-3-0 git-extras software-properties-common nano autojump
+    libgtk-3-0 git-extras software-properties-common nano autojump pass
 
 # xar for mac packages
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install
@@ -41,7 +41,7 @@ RUN wget https://github.com/hogliux/bomutils/archive/0.2.tar.gz  && tar -zxf 0.2
 RUN python -m pip install --upgrade pip && \
     pip install ansible==2.8.5 && \
     pip install molecule==2.22 && \
-    pip install docker-py cerberus
+    pip install cerberus
 
 # ADD user to docker group
 RUN groupadd docker -g 999 && gpasswd -a dev docker

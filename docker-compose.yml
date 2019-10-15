@@ -14,7 +14,7 @@ services:
           - 4000:4000
         volumes:
           - ${DS_HOME}:/home/dev
-          - ${HOME}/applications:/home/dev/applications
+          - ${HOME}/Applications:/home/dev/Applications
           - ${HOME}/.gnupg:/home/dev/.gnupg
           - ${HOME}/.ssh:/home/dev/.ssh
           - /tmp/.X11-unix:/tmp/.X11-unix:rw

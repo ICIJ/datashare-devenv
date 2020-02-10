@@ -23,7 +23,7 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   fi
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
   DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 8080)"
-  DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 9090)"
+  DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 9009)"
 
   if [[ $1 == "enter" ]]; then
     echo -e "\e[2mBackend interface is exposed on: \e[0m$DSENV_BACKEND_HOST"

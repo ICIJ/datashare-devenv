@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM phusion/baseimage:0.11
 
 RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
@@ -29,8 +29,8 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg ma
 # dev utils
 RUN apt-get -y update && \
     apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick \
-    tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng12-dev pkg-config libcurl4-openssl-dev libjpeg-dev python-dev python3-dev \
-    firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv \
+    tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng-dev pkg-config libjpeg-dev python-dev python3-dev \
+    firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl1.0-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv \
     postgresql-client-10 libpq-dev redis-tools jq libgif-dev libxcomposite1 libxcursor1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libatk-bridge2.0-0 \
     libgtk-3-0 git-extras software-properties-common nano autojump pass
 
@@ -50,9 +50,8 @@ RUN groupadd docker -g 999 && gpasswd -a dev docker
 RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn majestic
 
 # install ruby RVM
-RUN gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-RUN curl -sSL https://get.rvm.io | bash -s stable && \
-    chown -R dev:dev /usr/local/rvm
+RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN curl -sSL https://get.rvm.io | bash -s stable && chown -R dev:dev /usr/local/rvm
 
 # install ruby 2.4.6 and tmuxinator
 SHELL ["/bin/bash", "-l", "-c"]

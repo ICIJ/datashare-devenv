@@ -41,6 +41,6 @@ To use the whole stack (with xemx logging) you can:
 1. connect xemx on http://xemx:3001 *into the container* (so you can lauch a firefox inside the container)
 2. define a datashare application with the return url http://dsenv:8080/auth/xemx/callback
 3. make a link between the back and the front : in the datashare source folder `ln -s ../datashare-client/dist app` (you have to have compiled a front dist before)
-3. launch the backend with `./launchBack.sh -w -m PRODUCTION --oauthClientId <yourid> --oauthClientSecret <your_secret>`
+3. launch the backend with `./launchBack.sh -m SERVER --oauthClientId <yourid> --oauthClientSecret <your_secret>`
 4. connect datashare *into the container* on http://dsenv:8080
 5. logon datashare with dev/dev

@@ -41,7 +41,7 @@ services:
         image: redis:4.0.1-alpine
 
     xemx:
-        image: icij/xemx:2.2
+        image: icij/xemx:3.1.16
         ports:
           - 3001:3001
         environment:

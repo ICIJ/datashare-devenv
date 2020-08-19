@@ -5,7 +5,7 @@ DSENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 export DS_HOME=${DS_HOME:-$CURRENT_DIR}
 export DS_IMAGE=${DS_IMAGE:-dsenv}
-export DS_DNS=${DS_DNS:-172.30.0.2}
+export DS_DNS=${DS_DNS:-172.20.0.2}
 export TMUX=${TMUX}
 
 if [[ "$(docker images -q ${DS_IMAGE} 2> /dev/null)" == "" ]]; then

@@ -48,12 +48,12 @@ To use the whole stack (with xemx logging) you can:
 If you are still using old DNS, you'll have to set the DNS server via an environment variable:
 
 ```
-DS_DNS=172.30.0.2 path/to/datashare-devenv/dsenv.sh start
+DS_DNS=172.30.0.2 path/to/datashare-devenv/dsenv.sh enter
 ```
 
 
 If you run docker via sudo you'll have to pass SSH_AUTH_SOCK variable, run the script this way:
 
 ```
-sudo SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ./dsenv.sh start
+sudo SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ./dsenv.sh enter
 ```

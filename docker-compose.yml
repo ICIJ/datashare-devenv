@@ -28,7 +28,7 @@ services:
           - TMUX=${TMUX}
 
     preview:
-        image: icij/datashare-preview:0.4.3
+        image: icij/datashare-preview:0.7.1
         ports:
           - 5000:5000
         volumes:
@@ -41,7 +41,7 @@ services:
         image: redis:4.0.1-alpine
 
     xemx:
-        image: icij/xemx:3.1.16
+        image: icij/xemx:3.4.0
         ports:
           - 3001:3001
         environment:

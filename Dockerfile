@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:18.04-1.0.0
 
 RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
@@ -55,7 +55,7 @@ RUN curl -sSL https://get.rvm.io | bash -s stable && chown -R dev:dev /usr/local
 
 # install ruby 2.4.6 and tmuxinator
 SHELL ["/bin/bash", "-l", "-c"]
-RUN . /etc/profile.d/rvm.sh && rvm install 2.4.6 && rvm use --default 2.4.6 && gem install tmuxinator
+RUN . /etc/profile.d/rvm.sh && rvm install 2.4.6 && rvm use --default 2.4.6 && gem install tmuxinator -v 1.1.5
 
 ENV HOME="/home/dev" LANGUAGE="en" LANG="fr_FR.UTF-8"
 ADD ./hello.sh /opt/hello.sh

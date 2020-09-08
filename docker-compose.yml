@@ -96,15 +96,10 @@ services:
           tty: "true"
           stdin_open: "true"
 
-    solr:
-        image: solr:6.6.0
-
-    postgresql:
+    postgres:
         image: postgres:11.2
         environment:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test
           POSTGRES_DB: test
 
-    neo4j:
-        image: neo4j:3.5

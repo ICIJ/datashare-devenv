@@ -27,6 +27,21 @@ services:
           - SSH_AUTH_SOCK=/ssh-agent
           - TMUX=${TMUX}
 
+    discourse:
+        image: registry.cloud.icij.org/discourse_dev:latest
+        command: ["/sbin/boot"]
+        container_name: discourse_dev
+        restart: always
+        ports:
+          - 1080:1080
+          - 3000:3000
+        volumes:
+          - ${DS_HOME}:/home/discourse
+        environment:
+          - DISPLAY=${DISPLAY}
+          - SSH_AUTH_SOCK=/ssh-agent
+          - TMUX=${TMUX}
+
     preview:
         image: icij/datashare-preview:0.7.1
         ports:
@@ -96,15 +111,9 @@ services:
           tty: "true"
           stdin_open: "true"
 
-    solr:
-        image: solr:6.6.0
-
-    postgresql:
+    postgres:
         image: postgres:11.2
         environment:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test
           POSTGRES_DB: test
-
-    neo4j:
-        image: neo4j:3.5

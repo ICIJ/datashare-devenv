@@ -1,13 +1,18 @@
 #!/bin/bash
 
 PROFILE_SHELL_WITH_PATH=$SHELL
+DEV_USER=dev
 
 if [ -z "$PROFILE_SHELL_WITH_PATH" ]; then
   PROFILE_SHELL_WITH_PATH=$(ps -o command -p $PPID | grep -v COMMAND | sed 's/\-//g')
 fi
 
 PROFILE_SHELL=$(basename $PROFILE_SHELL_WITH_PATH)
-DSENV_CONTAINER=$(docker ps | grep dsenv_dsenv_ | head -1 | awk '{print $NF}')
+if [ -z "$DSENV_CONTAINER" ]; then
+  DSENV_CONTAINER=$(docker ps | grep dsenv_dsenv_ | head -1 | awk '{print $NF}')
+elif [ "discourse_dev" == "$DSENV_CONTAINER" ]; then
+  DEV_USER=discourse
+fi
 
 if [ -z "$PROFILE_SHELL" ]; then
   PROFILE_SHELL=bash
@@ -19,4 +24,4 @@ if [ "$PROFILE_SHELL" == "zsh" ]; then
   fi
 fi
 
-docker exec -ti "$DSENV_CONTAINER" script -q -c "/sbin/setuser dev /bin/$PROFILE_SHELL -c 'cd ~ && bash /opt/hello.sh && /bin/$PROFILE_SHELL'" /dev/null
+docker exec -ti "$DSENV_CONTAINER" script -q -c "/usr/bin/sudo -u ${DEV_USER} /bin/$PROFILE_SHELL -c 'cd ~ && /bin/$PROFILE_SHELL'" /dev/null

@@ -2,7 +2,7 @@ FROM phusion/baseimage:18.04-1.0.0
 
 RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
-RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt wget chromium-browser default-jdk maven
+RUN apt-get -y update && apt-get -y install tzdata sudo lxc python python-apt wget chromium-browser openjdk-8-jdk openjdk-11-jdk maven
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 

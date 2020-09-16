@@ -24,4 +24,4 @@ if [ "$PROFILE_SHELL" == "zsh" ]; then
   fi
 fi
 
-docker exec -ti "$DSENV_CONTAINER" script -q -c "/usr/bin/sudo -u ${DEV_USER} /bin/$PROFILE_SHELL -c 'cd ~ && /bin/$PROFILE_SHELL'" /dev/null
+docker exec -ti "$DSENV_CONTAINER" script -q -c "/usr/bin/sudo HOME=/home/${DEV_USER} -E -u ${DEV_USER} /bin/$PROFILE_SHELL -c 'cd ~ && /bin/$PROFILE_SHELL'" /dev/null

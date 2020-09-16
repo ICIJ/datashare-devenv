@@ -37,6 +37,13 @@ services:
           - 3000:3000
         volumes:
           - ${DS_HOME}:/home/discourse
+          - ${HOME}/Applications:/home/discourse/Applications
+          - ${HOME}/.gnupg:/home/discourse/.gnupg
+          - ${HOME}/.ssh:/home/discourse/.ssh
+          - /tmp/.X11-unix:/tmp/.X11-unix:rw
+          - /usr/bin/docker:/bin/docker:rw
+          - /var/run/docker.sock:/run/docker.sock:rw
+          - ${SSH_AUTH_SOCK}:/ssh-agent
         environment:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent

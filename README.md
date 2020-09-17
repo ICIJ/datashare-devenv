@@ -1,8 +1,12 @@
-# Devenv for Datashare
+# Devenv for Dataconnect
 
-The goal of this repository is to provide a dockerized environment for [datashare](https://github.com/ICIJ/datashare) development and tests. 
+The goal of this repository is to provide a dockerized environment for the dataconnect project for development and tests. 
 
-It provides a docker container with :
+It provides two docker containers
+
+## Datashare devenv
+
+it contains :
 
 - nodejs environment for the frontend
 - java JDK and maven for the backend
@@ -10,50 +14,95 @@ It provides a docker container with :
 - ssh agent mapped
 - docker env mapped
 
+We suppose that the project home is located in `machines/dataconnect`.
+
+## Discourse devenv 
+
+it is based on the [discourse devenv](https://github.com/discourse/discourse_docker)
+
+it contains : 
+
+- ruby tools (bundle, rake, RoR, ...) 
+- ssh agent mapped
+- docker env mapped
+
 # How to use it
 
-## Develop
+## Creating datashare devenv docker image locally
 
-You can build your dev container running in this repository :
-```
-1-$ docker build -t dsenv .
-2-$ docker login
-# go where you want to set your development home
-3-$ path/to/datashare-devenv/dsenv.sh enter
-# ... dev session inside the container
-# then exit 
-4-$ path/to/datashare-devenv/dsenv.sh stop
-```
+You only have to do this once to create the devenv image locally in you docker registry. Next time you want to use it you can go to the next section. 
+What I did : 
 
-1. is going to build a dsenv container locally.
-2. is going to log in into Docker Hub to download images (postgresql).
-3. is starting the datashare containers with the docker-compose.yml file and entering inside it (docker exec -ti ...)
-4. is stopping all the datashare containers
-
-Then after having built the dsenv container you just have to make a `dsenv.sh enter`.
-
-## Testing locally with latest sources
-
-To use the whole stack (with xemx logging) you can:
-
-1. connect xemx on http://xemx:3001 *into the container* (so you can lauch a firefox inside the container)
-2. define a datashare application with the return url http://dsenv:8080/auth/xemx/callback
-3. make a link between the back and the front : in the datashare source folder `ln -s ../datashare-client/dist app` (you have to have compiled a front dist before)
-3. launch the backend with `./launchBack.sh -m SERVER --oauthClientId <yourid> --oauthClientSecret <your_secret>`
-4. connect datashare *into the container* on http://dsenv:8080
-5. logon datashare with dev/dev
-
-## Comon pitfalls
-
-If you are still using old DNS, you'll have to set the DNS server via an environment variable:
-
-```
-DS_DNS=172.30.0.2 path/to/datashare-devenv/dsenv.sh enter
+```shell script
+mkdir -p machines/dataconnect/src # or another path as you prefer
+cd machines/dataconnect/src
+git clone git@github.com:ICIJ/datashare-devenv.git
+cd datashare-devenv
+git fetch origin dataconnect
+git co dataconnect
+docker build -t dsenv .
+# wait for the image to build for a while
 ```
 
+## Launching and entering into the images
 
-If you run docker via sudo you'll have to pass SSH_AUTH_SOCK variable, run the script this way:
+Every dev application (for ex IDE) that you want to use inside the container
+AND outside should be located in `~/Applications` : this folder will be mounted inside 
+with the same name.
 
+You have also to be logged in with dockerhub (icij and public one) to be able to pull the images.
+
+To log in the ICIJ registry : 
+
+```shell script
+docker login -u icij_registry registry.cloud.icij.org
 ```
-sudo SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ./dsenv.sh enter
+
+To enter in discourse devenv
+```shell script
+# in machines/dataconnect
+DSENV_CONTAINER=discourse_dev ./src/datashare-devenv/dsenv.sh enter
+# then you must be in the discourse development environment
+cd src
+git clone git@github.com:ICIJ/icij-discourse
+git clone git@github.com:ICIJ/datashare-client.git
+git clone git@github.com:ICIJ/datashare.git
+...
+```
+
+To enter in datashare devenv
+
+```shell script
+# in machines/dataconnect
+DSENV_CONTAINER=discourse_dev ./src/datashare-devenv/dsenv.sh enter
+# then you must be in the discourse development environment
+```
+
+To stop the devenv
+```shell script
+# inside the container
+$ exit
+# then you should be in machines/dataconnect outside the docker container
+./src/datashare-devenv/dsenv.sh stop
+```
+
+# Running services inside docker
+
+## Running discourse
+
+```shell script
+cd src/icij-discourse
+git submodule update --init --recursive # to get the plugins
+RACK_HANDLER=puma RAILS_ENV=development rails s -b 0.0.0.0
+```
+
+## Running datashare
+
+```shell script
+cd src/datashare-client
+make clean dist
+cd ../datashare
+ln -s ../datashare-client app
+make clean dist
+./launchBack
 ```

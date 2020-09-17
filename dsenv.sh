@@ -19,7 +19,7 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
     cp -n $file $CURRENT_DIR/.`basename $file`
   done
   if [ ! -f $CURRENT_DIR/.profile ]; then
-    ln -s $CURRENT_DIR/.bashrc $CURRENT_DIR/.profile
+    ln -s .bashrc .profile
   fi
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
   DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port dsenv 8080)"

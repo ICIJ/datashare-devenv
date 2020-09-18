@@ -50,7 +50,8 @@ RUN groupadd docker -g 999 && gpasswd -a dev docker
 RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn majestic
 
 # install ruby RVM
-RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+RUN curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s stable && chown -R dev:dev /usr/local/rvm
 
 # install ruby 2.4.6 and tmuxinator

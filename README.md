@@ -74,8 +74,8 @@ To enter in datashare devenv
 
 ```shell script
 # in machines/dataconnect
-DSENV_CONTAINER=discourse_dev ./src/datashare-devenv/dsenv.sh enter
-# then you must be in the discourse development environment
+./src/datashare-devenv/dsenv.sh enter
+# then you must be in the datashare development environment
 ```
 
 To stop the devenv
@@ -97,7 +97,7 @@ bundle install
 rails db:migrate
 RACK_HANDLER=puma RAILS_ENV=development rails s -b 0.0.0.0
 ```
-> datashare is now accessible at `localhost:3000`
+> discourse is now accessible at `localhost:3000`
 
 ## Running datashare
 

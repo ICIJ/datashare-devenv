@@ -102,6 +102,7 @@ RACK_HANDLER=puma RAILS_ENV=development rails s -b 0.0.0.0
 
 ```shell script
 cd src/datashare-client
+yarn
 make clean dist
 cd ../datashare
 ln -s ../datashare-client app

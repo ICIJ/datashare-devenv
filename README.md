@@ -97,7 +97,7 @@ bundle install
 rails db:migrate
 RACK_HANDLER=puma RAILS_ENV=development rails s -b 0.0.0.0
 ```
-> discourse is now accessible at `localhost:3000`
+discourse is now accessible at `localhost:3000`
 
 ## Running datashare
 
@@ -110,4 +110,4 @@ ln -s ../datashare-client app
 make clean dist
 ./launchBack
 ```
-> datashare is now accessible at `localhost:8888`
+datashare is now accessible at `localhost:8888`

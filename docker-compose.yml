@@ -28,7 +28,7 @@ services:
           - TMUX=${TMUX}
 
     discourse:
-        image: registry.cloud.icij.org/discourse_dev:latest
+            image: registry.cloud.icij.org/discourse_dev:latest
         command: ["/sbin/boot"]
         container_name: discourse_dev
         restart: always
@@ -48,6 +48,8 @@ services:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent
           - TMUX=${TMUX}
+          - RACK_HANDLER=puma
+          - DISCOURSE_DEV_HOSTS=discourse
 
     preview:
         image: icij/datashare-preview:0.7.1

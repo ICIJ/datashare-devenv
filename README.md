@@ -95,7 +95,7 @@ cd src/icij-discourse
 git submodule update --init --recursive # to get the plugins
 bundle install
 rails db:migrate
-RACK_HANDLER=puma RAILS_ENV=development rails s -b 0.0.0.0
+rails s -b 0.0.0.0
 ```
 discourse is now accessible at `localhost:3000`
 

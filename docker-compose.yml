@@ -28,7 +28,7 @@ services:
           - TMUX=${TMUX}
 
     discourse:
-            image: registry.cloud.icij.org/discourse_dev:latest
+        image: registry.cloud.icij.org/discourse_dev:latest
         command: ["/sbin/boot"]
         container_name: discourse_dev
         restart: always

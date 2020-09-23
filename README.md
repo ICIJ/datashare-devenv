@@ -106,7 +106,12 @@ cd src/datashare-client
 yarn
 make clean dist
 cd ../datashare
+# bootstrapping database and front
+mvn validate
+mvn -pl commons-test -am install
+mvn -pl datashare-db liquibase:update
 ln -s ../datashare-client app
+# then to compile
 make clean dist
 ./launchBack
 ```

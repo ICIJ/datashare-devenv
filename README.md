@@ -110,7 +110,7 @@ cd ../datashare
 mvn validate
 mvn -pl commons-test -am install
 mvn -pl datashare-db liquibase:update
-ln -s ../datashare-client app
+ln -s ../datashare-client/dist app
 # then to compile
 make clean dist
 ./launchBack

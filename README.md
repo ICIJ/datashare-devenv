@@ -36,12 +36,14 @@ Then after having built the dsenv container you just have to make a `dsenv.sh en
 
 To use the whole stack (with xemx logging) you can:
 
-1. connect xemx on http://xemx:3001 *into the container* (so you can lauch a firefox inside the container)
-2. define a datashare application with the return url http://dsenv:8080/auth/xemx/callback
+1. Connect to xemx on http://xemx:3001
+2. Define a new application (See menu "Applications")
+  - Name could be "Datashare Dev" (or whatever you like)
+  - Redirect URI has to be http://dsenv:8080/auth/xemx/callback
 3. make a link between the back and the front : in the datashare source folder `ln -s ../datashare-client/dist app` (you have to have compiled a front dist before)
-3. launch the backend with `./launchBack.sh -m SERVER --oauthClientId <yourid> --oauthClientSecret <your_secret>`
-4. connect datashare *into the container* on http://dsenv:8080
-5. logon datashare with dev/dev
+3. Launch the backend with `./launchBack.sh -m SERVER --oauthClientId <Application Id from Xemx> --oauthClientSecret <Secret from Xemx>`
+4. Connect datashare *into the container* on http://dsenv:8080
+5. Logon datashare
 
 ## Comon pitfalls
 

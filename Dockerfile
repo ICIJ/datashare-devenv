@@ -38,10 +38,12 @@ RUN apt-get -y update && \
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install
 RUN wget https://github.com/hogliux/bomutils/archive/0.2.tar.gz  && tar -zxf 0.2.tar.gz && cd bomutils-0.2 && make && make install
 
-RUN python -m pip install --upgrade pip && \
-    pip install ansible==2.8.5 && \
-    pip install molecule==2.22 && \
-    pip install cerberus
+RUN python3 -m pip install --upgrade pip && \
+    pip3 install ansible==2.10.3 && \
+    pip3 install molecule==2.22 && \
+    pip3 install pipenv && \
+    pip3 install boto3 awscli && \
+    pip3 install cerberus
 
 # ADD user to docker group
 RUN groupadd docker -g 999 && gpasswd -a dev docker

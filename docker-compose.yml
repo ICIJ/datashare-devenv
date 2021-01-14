@@ -64,7 +64,7 @@ services:
           MYSQL_DATABASE: xemx_development
 
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:6.8.13
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
         environment:
           - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
           - discovery.type=single-node

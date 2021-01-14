@@ -1,6 +1,6 @@
 # Devenv for Dataconnect
 
-The goal of this repository is to provide a dockerized environment for the dataconnect project for development and tests. 
+The goal of this repository is to provide a dockerized environment for the dataconnect project for development and tests.
 
 It provides two docker containers
 
@@ -16,13 +16,13 @@ it contains :
 
 We suppose that the project home is located in `machines/dataconnect`.
 
-## Discourse devenv 
+## Discourse devenv
 
 it is based on the [discourse devenv](https://github.com/discourse/discourse_docker)
 
-it contains : 
+it contains :
 
-- ruby tools (bundle, rake, RoR, ...) 
+- ruby tools (bundle, rake, RoR, ...)
 - ssh agent mapped
 - docker env mapped
 
@@ -30,8 +30,8 @@ it contains :
 
 ## Creating datashare devenv docker image locally
 
-You only have to do this once to create the devenv image locally in you docker registry. Next time you want to use it you can go to the next section. 
-What I did : 
+You only have to do this once to create the devenv image locally in you docker registry. Next time you want to use it you can go to the next section.
+What I did :
 
 ```shell script
 mkdir -p machines/dataconnect/src # or another path as you prefer
@@ -47,12 +47,12 @@ docker build -t dsenv .
 ## Launching and entering into the images
 
 Every dev application (for ex IDE) that you want to use inside the container
-AND outside should be located in `~/Applications` : this folder will be mounted inside 
+AND outside should be located in `~/Applications` : this folder will be mounted inside
 with the same name.
 
 You have also to be logged in with dockerhub (icij and public one) to be able to pull the images.
 
-To log in the ICIJ registry : 
+To log in the ICIJ registry :
 
 ```shell script
 docker login -u icij_registry registry.cloud.icij.org
@@ -116,3 +116,17 @@ make clean dist
 ./launchBack
 ```
 datashare is now accessible at `localhost:8888`
+
+## Comon pitfalls
+
+If you are still using old DNS, you'll have to set the DNS server via an environment variable:
+
+```
+DS_DNS=172.30.0.2 path/to/datashare-devenv/dsenv.sh enter
+```
+
+
+If you run docker via sudo you'll have to pass SSH_AUTH_SOCK variable, run the script this way:
+
+```
+sudo SSH_AUTH_SOCK=${SSH_AUTH_SOCK} ./dsenv.sh enter

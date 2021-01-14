@@ -11,6 +11,7 @@ services:
           - 9009:9009
           - 8888:8080
           - 8008:8008
+          - 8443:8443
           # For Majestic testing UI
           - 4000:4000
         volumes:

@@ -32,7 +32,7 @@ RUN apt-get -y update && \
     tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng-dev pkg-config libjpeg-dev python-dev python3-dev \
     firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl1.0-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv \
     postgresql-client-10 libpq-dev redis-tools jq libgif-dev libxcomposite1 libxcursor1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libatk-bridge2.0-0 \
-    libgtk-3-0 git-extras software-properties-common nano autojump pass poppler-utils libpoppler-cpp-dev libpoppler-dev qpdf
+    libgtk-3-0 git-extras software-properties-common nano autojump pass poppler-utils libpoppler-cpp-dev libpoppler-dev qpdf cmake
 
 # xar for mac packages
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install

@@ -4,3 +4,6 @@ promptinit
 
 # This will set the default prompt to the walters theme
 prompt walters
+
+export JAVA_HOME=/usr/lib/jvm/default-java
+export MAVEN_OPTS="-Xms512m -Xmx512m -Xss10M"

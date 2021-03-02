@@ -49,7 +49,7 @@ RUN python3 -m pip install --upgrade pip && \
 RUN groupadd docker -g 999 && gpasswd -a dev docker
 
 # n : node version manager
-RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 10.15.2 && npm install -g yarn majestic
+RUN mkdir -p /opt/n && curl -L https://git.io/n-install | PREFIX=/opt/n N_PREFIX=/opt/n bash -s -- -y && /opt/n/bin/n 14.15.5 && npm install -g yarn majestic
 
 # install ruby RVM
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import -

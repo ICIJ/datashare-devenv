@@ -104,8 +104,7 @@ discourse is now accessible at `localhost:3000`
 
 ```shell script
 cd src/datashare-client
-yarn
-make clean dist
+make install clean dist
 cd ../datashare
 # bootstrapping database and front
 mvn validate

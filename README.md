@@ -50,13 +50,14 @@ Every dev application (for ex IDE) that you want to use inside the container
 AND outside should be located in `~/Applications` : this folder will be mounted inside
 with the same name.
 
-You have also to be logged in with dockerhub (icij and public one) to be able to pull the images.
+You must also be logged in with dockerhub to be able to pull the images.
 
-To log in the ICIJ registry :
+To log in :
 
 ```shell script
-docker login -u icij_registry registry.cloud.icij.org
+docker login
 ```
+It will then prompt you for your Docker ID. Enter it. After, it will prompt your for the password associated with your Docker ID. Enter the password. 
 
 To enter in discourse devenv
 ```shell script

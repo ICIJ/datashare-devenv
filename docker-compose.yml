@@ -19,6 +19,8 @@ services:
           - ${HOME}/Applications:/home/dev/Applications
           - ${HOME}/.gnupg:/home/dev/.gnupg
           - ${HOME}/.ssh:/home/dev/.ssh
+          - ${HOME}/.aws:/home/dev/.aws
+          - ${HOME}/.password-store:/home/dev/.password-store
           - /tmp/.X11-unix:/tmp/.X11-unix:rw
           - /usr/bin/docker:/bin/docker:rw
           - /var/run/docker.sock:/run/docker.sock:rw

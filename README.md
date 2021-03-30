@@ -92,7 +92,7 @@ Datashare is now accessible at `localhost:8888`
 To enter in ICIJ's Discourse service:
 
 ```shell script
-DSENV_CONTAINER=discourse ./src/datashare-devenv/dsenv.sh enter
+./src/datashare-devenv/dsenv.sh enter discourse
 ```
 
 Since the homedir is overridden by your, you must clone ICIJ's Discourse

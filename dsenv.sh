@@ -35,7 +35,7 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   if [ ! -f $DS_HOME/.profile ]; then
     ln -s $DS_HOME/.bashrc $DS_HOME/.profile
   fi
-  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
+  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d ${@:2}
   DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 8080)"
   DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 9009)"
 

@@ -17,7 +17,7 @@ fi
 if [[ $DS_HOME != $HOME ]] ; then
   echo -e "\e[0;33mYou're about to start the devenv from a directory different from your homedir.\e[0m"
   while true; do
-    read -p "Do you want use your homedir instead? [Y/n/c] " yn
+    read -p "Do you want use your homedir instead? [Y/n/c]" yn
     case $yn in
         "" ) export DS_HOME=${HOME}; break;;
         [Yy]* ) export DS_HOME=${HOME}; break;;
@@ -30,10 +30,10 @@ fi
 
 if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   for file in $DSENV_DIR/rcfiles/*; do
-    cp -n $file $CURRENT_DIR/.`basename $file`
+    cp -n $file $DS_HOME/.`basename $file`
   done
-  if [ ! -f $CURRENT_DIR/.profile ]; then
-    ln -s .bashrc .profile
+  if [ ! -f $DS_HOME/.profile ]; then
+    ln -s $DS_HOME/.bashrc $DS_HOME/.profile
   fi
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d
   DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 8080)"

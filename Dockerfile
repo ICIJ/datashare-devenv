@@ -32,7 +32,7 @@ RUN apt-get -y update && \
     tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng-dev pkg-config libjpeg-dev python-dev python3-dev \
     firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl1.0-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv pinentry-gtk2 \
     postgresql-client-10 libpq-dev redis-tools jq libgif-dev libxcomposite1 libxcursor1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libatk-bridge2.0-0 \
-    libgtk-3-0 git-extras software-properties-common nano autojump pass poppler-utils libpoppler-cpp-dev libpoppler-dev qpdf cmake
+    libgtk-3-0 git-extras software-properties-common nano autojump pass poppler-utils libpoppler-cpp-dev libpoppler-dev qpdf cmake unzip
 
 # xar for mac packages
 RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install
@@ -44,6 +44,28 @@ RUN python3 -m pip install --upgrade pip && \
     pip3 install pipenv && \
     pip3 install boto3 awscli && \
     pip3 install cerberus
+
+
+# Install terraform
+RUN wget https://releases.hashicorp.com/terraform/0.13.0/terraform_0.13.0_linux_amd64.zip -O /tmp/terraform.zip && \
+    unzip /tmp/terraform.zip && \
+    mv terraform /usr/local/bin && \
+    chmod 755 /usr/local/bin/terraform && \
+    rm -f /tmp/terraform.zip
+
+# Install helm and helmfile
+RUN wget https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz -O /tmp/helm.tar.gz && \
+    tar -xzvf /tmp/helm.tar.gz && \
+    mv linux-amd64/helm /usr/local/bin && \
+    mv linux-amd64/tiller /usr/local/bin && \
+    rm -rf /tmp/helm.tar.gz linux-amd64 && \
+    helm init --stable-repo-url=https://charts.helm.sh/stable --client-only && \
+    wget https://github.com/roboll/helmfile/releases/download/v0.130.0/helmfile_linux_amd64 -O /tmp/helmfile && \
+    mv /tmp/helmfile /usr/local/bin && \
+    chmod 755 /usr/local/bin/helmfile && \
+    helm plugin install https://github.com/aslafy-z/helm-git --version 0.8.0 && \
+    helm plugin install https://github.com/databus23/helm-diff && \
+    helm plugin install https://github.com/zendesk/helm-secrets
 
 # ADD user to docker group
 RUN groupadd docker -g 999 && gpasswd -a dev docker

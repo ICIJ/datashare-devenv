@@ -43,7 +43,12 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
 
   docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d ${@:2}
 
-  if [ $1 == ${@: -1} ] || [[ ${@: -1} == "workspace" ]]; then
+  DS_SERVICE=${@: -1}
+  if [ $1 == $DS_SERVICE ]; then
+    DS_SERVICE="workspace"
+  fi
+
+  if [[ $DS_SERVICE == "workspace" ]]; then
     DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 8080)"
     DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 9009)"
     echo -e "\e[2mBackend interface is exposed on: \e[0m$DSENV_BACKEND_HOST"
@@ -51,7 +56,7 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   fi
 
   if [[ $1 == "enter" ]]; then
-    ${DSENV_DIR}/enter_dsenv.sh
+    ${DSENV_DIR}/enter_dsenv.sh $DS_SERVICE
   fi
 
 elif [[ "$1" == "stop" ]]; then

@@ -1,5 +1,6 @@
 #!/bin/bash
 DEV_USER=dev
+DSENV_CONTAINER=$1
 
 # When no DSENV_CONTAINER given, we use the first instance of `dsenv_workspace_`
 if [ -z "$DSENV_CONTAINER" ]; then

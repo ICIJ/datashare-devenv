@@ -2,7 +2,10 @@ version: '2'
 services:
     workspace:
         image: "${DS_IMAGE}"
-        hostname: dev
+        networks:
+          default:
+            aliases:
+              - dev
         # see http://blog.johngoulah.com/2016/03/running-strace-in-docker/
         security_opt:
           - seccomp:unconfined

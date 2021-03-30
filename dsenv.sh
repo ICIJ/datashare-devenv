@@ -8,6 +8,11 @@ export DS_IMAGE=${DS_IMAGE:-dsenv}
 export DS_DNS=${DS_DNS:-172.20.0.2}
 export TMUX=${TMUX}
 
+if [ -f /.dockerenv ]; then
+  echo -e "\e[0;31mYou're trying to run this script from inside the devenv 😵\e[0m"
+  exit
+fi
+
 if [[ "$(docker images -q ${DS_IMAGE} 2> /dev/null)" == "" ]]; then
   # do something
   echo "Devenv image doesn't existing yet. We need to build it!"
@@ -19,11 +24,11 @@ if [[ $DS_HOME != $HOME ]] ; then
   while true; do
     read -p "Do you want use your homedir instead? [Y/n/c]" yn
     case $yn in
-        "" ) export DS_HOME=${HOME}; break;;
-        [Yy]* ) export DS_HOME=${HOME}; break;;
-        [Nn]* ) break;;
-        [Cc]* ) exit;;
-        * ) echo -e "\e[0;31mPlease answer yes, no or cancel.\e[0m";;
+      "" ) export DS_HOME=${HOME}; break;;
+      [Yy]* ) export DS_HOME=${HOME}; break;;
+      [Nn]* ) break;;
+      [Cc]* ) exit;;
+      * ) echo -e "\e[0;31mPlease answer yes, no or cancel.\e[0m";;
     esac
   done
 fi

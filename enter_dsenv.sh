@@ -4,7 +4,13 @@ DEV_USER=dev
 # When no DSENV_CONTAINER given, we use the first instance of `dsenv_workspace_`
 if [ -z "$DSENV_CONTAINER" ]; then
   DSENV_CONTAINER=$(docker ps | grep dsenv_workspace_ | head -1 | awk '{print $NF}')
-elif [ "discourse_dev" == "$DSENV_CONTAINER" ]; then
+# When a DSENV_CONTAINER is given, we ensure it's not just the name of the service
+# but the full name of the container (ie. dsenv_SERVICE_X).
+else
+  DSENV_CONTAINER=$(docker ps | grep $DSENV_CONTAINER | head -1 | awk '{print $NF}')
+fi
+
+if [[ $DSENV_CONTAINER == dsenv_discourse_* ]]; then
   DEV_USER=discourse
 fi
 

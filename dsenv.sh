@@ -14,6 +14,20 @@ if [[ "$(docker images -q ${DS_IMAGE} 2> /dev/null)" == "" ]]; then
   docker build -t dsenv ${DSENV_DIR}
 fi
 
+if [[ $DS_HOME != $HOME ]] ; then
+  echo -e "\e[0;33mYou're about to start the devenv from a directory different from your homedir.\e[0m"
+  while true; do
+    read -p "Do you want use your homedir instead? [Y/n/c] " yn
+    case $yn in
+        "" ) export DS_HOME=${HOME}; break;;
+        [Yy]* ) export DS_HOME=${HOME}; break;;
+        [Nn]* ) break;;
+        [Cc]* ) exit;;
+        * ) echo -e "\e[0;31mPlease answer yes, no or cancel.\e[0m";;
+    esac
+  done
+fi
+
 if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   for file in $DSENV_DIR/rcfiles/*; do
     cp -n $file $CURRENT_DIR/.`basename $file`

@@ -2,11 +2,6 @@ version: '2'
 services:
     workspace:
         image: "${DS_IMAGE}"
-        depends_on:
-          - postgres
-          - elasticsearch
-          - preview
-          - redis
         networks:
           default:
             aliases:

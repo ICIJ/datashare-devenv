@@ -35,13 +35,17 @@ if [[ $1 == "start"  ]] || [[ $1 == "up"  ]] || [[ $1 == "enter" ]]; then
   if [ ! -f $DS_HOME/.profile ]; then
     ln -s $DS_HOME/.bashrc $DS_HOME/.profile
   fi
-  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d ${@:2}
-  DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 8080)"
-  DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 9009)"
 
-  if [[ $1 == "enter" ]]; then
+  docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv up -d ${@:2}
+
+  if [ $1 == ${@: -1} ] || [[ ${@: -1} == "workspace" ]]; then
+    DSENV_BACKEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 8080)"
+    DSENV_FRONTEND_HOST="http://$(docker-compose -f ${DSENV_DIR}/docker-compose.yml -p dsenv port workspace 9009)"
     echo -e "\e[2mBackend interface is exposed on: \e[0m$DSENV_BACKEND_HOST"
     echo -e "\e[2mFrontend interface is exposed on: \e[0m$DSENV_FRONTEND_HOST"
+  fi
+
+  if [[ $1 == "enter" ]]; then
     ${DSENV_DIR}/enter_dsenv.sh
   fi
 

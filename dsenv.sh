@@ -20,7 +20,7 @@ if [[ "$(docker images -q ${DS_IMAGE} 2> /dev/null)" == "" ]]; then
 fi
 
 if [[ $DS_HOME != $HOME ]] ; then
-  echo -e "\e[0;33mYou're about to start the devenv from a directory different from your homedir.\e[0m"
+  echo -e "\e[0;33mYou're about to use the devenv from a directory different from your homedir.\e[0m"
   while true; do
     read -p "Do you want use your homedir instead? [Y/n/c]" yn
     case $yn in

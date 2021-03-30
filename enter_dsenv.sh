@@ -24,8 +24,8 @@ if [ -z "$PROFILE_SHELL" ]; then
 fi
 
 if [ "$PROFILE_SHELL" == "zsh" ]; then
-  if ! grep -q 'default-shell /bin/zsh' .tmux.conf ; then
-    echo "set-option -g default-shell /bin/zsh" >> .tmux.conf
+  if ! grep -q 'default-shell /bin/zsh' $DS_HOME/.tmux.conf ; then
+    echo "set-option -g default-shell /bin/zsh" >> $DS_HOME/.tmux.conf
   fi
 fi
 

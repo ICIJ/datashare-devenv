@@ -1,15 +1,15 @@
 #!/bin/bash
 DEV_USER=dev
 
-# When no DSENV_CONTAINER given, we use the first instance of `dsenv_dsenv_`
+# When no DSENV_CONTAINER given, we use the first instance of `dsenv_workspace_`
 if [ -z "$DSENV_CONTAINER" ]; then
-  DSENV_CONTAINER=$(docker ps | grep dsenv_dsenv_ | head -1 | awk '{print $NF}')
+  DSENV_CONTAINER=$(docker ps | grep dsenv_workspace_ | head -1 | awk '{print $NF}')
 elif [ "discourse_dev" == "$DSENV_CONTAINER" ]; then
   DEV_USER=discourse
 fi
 
-# When DSENV_CONTAINER is different from `dsenv_dsenv_`, we always use bash
-if [[ $DSENV_CONTAINER != dsenv_dsenv_* ]]; then
+# When DSENV_CONTAINER is different from `dsenv_workspace_`, we always use bash
+if [[ $DSENV_CONTAINER != dsenv_workspace_* ]]; then
   PROFILE_SHELL_WITH_PATH=bash
 else
   PROFILE_SHELL_WITH_PATH=$SHELL

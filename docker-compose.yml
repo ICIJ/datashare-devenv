@@ -33,8 +33,11 @@ services:
     discourse:
         image: registry.cloud.icij.org/discourse_dev:latest
         command: ["/sbin/boot"]
-        container_name: discourse_dev
         restart: always
+        networks:
+          default:
+            aliases:
+              - discourse_dev
         ports:
           - 1080:1080
           - 3000:3000

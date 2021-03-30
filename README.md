@@ -115,7 +115,7 @@ rails s -b 0.0.0.0
 
 The service is now accessible at `localhost:3000`
 
-## Comon pitfalls
+## Common pitfalls
 
 If you run docker via sudo you'll have to pass SSH_AUTH_SOCK variable, run the script this way:
 

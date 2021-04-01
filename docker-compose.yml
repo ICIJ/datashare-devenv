@@ -1,8 +1,11 @@
 version: '2'
 services:
-    dsenv:
+    workspace:
         image: "${DS_IMAGE}"
-        hostname: dev
+        networks:
+          default:
+            aliases:
+              - dev
         # see http://blog.johngoulah.com/2016/03/running-strace-in-docker/
         security_opt:
           - seccomp:unconfined
@@ -34,8 +37,13 @@ services:
     discourse:
         image: registry.cloud.icij.org/discourse_dev:latest
         command: ["/sbin/boot"]
-        container_name: discourse_dev
-        restart: always
+        depends_on:
+          - xemx
+          - postgres
+        networks:
+          default:
+            aliases:
+              - discourse_dev
         ports:
           - 1080:1080
           - 3000:3000
@@ -55,21 +63,11 @@ services:
           - RACK_HANDLER=puma
           - DISCOURSE_DEV_HOSTS=discourse
 
-    preview:
-        image: icij/datashare-preview:0.8.1
-        ports:
-          - 5000:5000
-        volumes:
-          - /tmp/.X11-unix:/tmp/.X11-unix
-        environment:
-          - DS_HOST=http://dsenv:8080
-          - DISPLAY=${DISPLAY}
-
-    redis:
-        image: redis:4.0.1-alpine
-
     xemx:
         image: registry.cloud.icij.org/xemx:3.7.7
+        depends_on:
+          - mysql
+          - openldap
         ports:
           - 3001:3001
         environment:
@@ -84,12 +82,32 @@ services:
           LDAP_ADMIN_PASSWORD: admin
           WAIT_HOSTS: openldap:389
 
+    preview:
+        image: icij/datashare-preview:0.8.1
+        ports:
+          - 5000:5000
+        volumes:
+          - /tmp/.X11-unix:/tmp/.X11-unix
+        environment:
+          - DS_HOST=http://dsenv:8080
+          - DISPLAY=${DISPLAY}
+
+    redis:
+        image: redis:4.0.1-alpine
+
     mysql:
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: xemx_development
+
+    postgres:
+      image: postgres:11.2
+      environment:
+        POSTGRES_USER: test
+        POSTGRES_PASSWORD: test
+        POSTGRES_DB: test
 
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
@@ -123,10 +141,3 @@ services:
           LDAP_SSL_HELPER_PREFIX: ldap
           tty: "true"
           stdin_open: "true"
-
-    postgres:
-        image: postgres:11.2
-        environment:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: test

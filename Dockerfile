@@ -1,4 +1,4 @@
-FROM phusion/baseimage:18.04-1.0.0
+FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 
 RUN add-apt-repository --yes ppa:deadsnakes/ppa
 
@@ -28,14 +28,15 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg ma
 
 # dev utils
 RUN apt-get -y update && \
-    apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev libxslt1-dev gnuplot ghostscript imagemagick \
+    apt-get -y install git zsh net-tools man-db tree curl wget tcpdump traceroute ngrep sysstat htop bash-completion gitk vim libxml2-dev autoconf libxslt1-dev gnuplot ghostscript imagemagick \
     tmux xclip ccze xvfb inotify-tools source-highlight strace graphviz libffi-dev libfreetype6-dev libpng-dev pkg-config libjpeg-dev python-dev python3-dev \
-    firefox chromium-browser iputils-ping maven libcairo2-dev python-pip python3-pip libssl1.0-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.6 virtualenv pinentry-gtk2 \
+    firefox chromium-browser iputils-ping maven libcairo2-dev python3-pip libssl1.1 libssl-dev libjpeg8-dev zlib1g-dev gnupg2 nsis cpio tesseract-ocr icnsutils python3.7 virtualenv pinentry-gtk2 \
     postgresql-client-10 libpq-dev redis-tools jq libgif-dev libxcomposite1 libxcursor1 libxi6 libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libatk-bridge2.0-0 \
     libgtk-3-0 git-extras software-properties-common nano autojump pass poppler-utils libpoppler-cpp-dev libpoppler-dev qpdf cmake unzip
 
 # xar for mac packages
-RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && ./configure && make && make install
+# for xar see https://github.com/mackyle/xar/issues/18 patch for libSSL
+RUN wget https://github.com/downloads/mackyle/xar/xar-1.6.1.tar.gz && tar -zxf xar-1.6.1.tar.gz && cd xar-1.6.1 && sed -i 's/OpenSSL_add_all_ciphers/OPENSSL_init_crypto/' configure.ac && ./autogen.sh && make && make install
 RUN wget https://github.com/hogliux/bomutils/archive/0.2.tar.gz  && tar -zxf 0.2.tar.gz && cd bomutils-0.2 && make && make install
 
 RUN python3 -m pip install --upgrade pip && \

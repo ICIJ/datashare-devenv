@@ -17,6 +17,7 @@ RUN echo "tzdata tzdata/Areas select Europe" > /tmp/tzdata.txt && echo "tzdata t
 RUN export uid=1000 gid=1000 internal_user=dev && \
     mkdir -p /home/${internal_user} && \
     echo "${internal_user}:x:${uid}:${gid}:${internal_user},,,:/home/${internal_user}:/bin/bash" >> /etc/passwd && \
+    echo "${internal_user}:*:18750:0:99999:7:::" >> /etc/shadow && \
     echo "${internal_user}:x:${uid}:" >> /etc/group && \
     echo "${internal_user} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${internal_user} && \
     chmod 0440 /etc/sudoers.d/${internal_user} && \

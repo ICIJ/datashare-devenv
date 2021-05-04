@@ -13,8 +13,11 @@ RUN echo 'fr_FR.UTF-8 UTF-8' > /etc/locale.gen && /usr/sbin/locale-gen
 # timezone Europe/Paris
 RUN echo "tzdata tzdata/Areas select Europe" > /tmp/tzdata.txt && echo "tzdata tzdata/Zones/Europe select Paris" >> /tmp/tzdata.txt && debconf-set-selections /tmp/tzdata.txt && rm /etc/timezone && rm /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
+ARG user_uid=1000
+ARG user_gid=1000
+
 # with your user / group id
-RUN export uid=1000 gid=1000 internal_user=dev && \
+RUN export uid=$user_uid gid=$user_gid internal_user=dev && \
     mkdir -p /home/${internal_user} && \
     echo "${internal_user}:x:${uid}:${gid}:${internal_user},,,:/home/${internal_user}:/bin/bash" >> /etc/passwd && \
     echo "${internal_user}:*:18750:0:99999:7:::" >> /etc/shadow && \

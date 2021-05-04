@@ -47,7 +47,7 @@ cd ~/src
 git clone git@github.com:ICIJ/datashare-devenv.git
 cd datashare-devenv
 # This will build the dsenv image. This might take a while.
-docker build -t dsenv .
+./build.sh
 ```
 
 ## Entering `workspace` service

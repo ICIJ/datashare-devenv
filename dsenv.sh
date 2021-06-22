@@ -7,6 +7,7 @@ export DS_HOME=${DS_HOME:-$CURRENT_DIR}
 export DS_IMAGE=${DS_IMAGE:-dsenv}
 export DS_DNS=${DS_DNS:-172.20.0.2}
 export TMUX=${TMUX}
+export GID=$(id -u)
 
 if [ -f /.dockerenv ]; then
   echo -e "\e[0;31mYou're trying to run this script from inside the devenv 😵\e[0m"

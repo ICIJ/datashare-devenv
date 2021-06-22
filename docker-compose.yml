@@ -29,6 +29,7 @@ services:
           - /usr/bin/docker:/bin/docker:rw
           - /var/run/docker.sock:/run/docker.sock:rw
           - ${SSH_AUTH_SOCK}:/ssh-agent
+          - /run/user/${GID}/:/run/user/${GID}/:ro
         environment:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent
@@ -56,6 +57,7 @@ services:
           - /usr/bin/docker:/bin/docker:rw
           - /var/run/docker.sock:/run/docker.sock:rw
           - ${SSH_AUTH_SOCK}:/ssh-agent
+          - /run/user/${GID}/:/run/user/${GID}/:ro
         environment:
           - DISPLAY=${DISPLAY}
           - SSH_AUTH_SOCK=/ssh-agent
